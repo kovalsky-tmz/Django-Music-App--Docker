@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container c">
+
+    	<div class="row margin-bot-5" >
+    		<h2 class="text-center "> Albums of {{band.band}}</h2>
+    		<p><button type="button" class="btn btn-success btn-lg center-block  btn-resp  show_songs"  onclick="window.location='{{band}}/all';">Show all songs</button></p>
+    		{% if not albums %}
+    			
+    			<h3 class="text-center"> Result: 0 albums </h3>
+    			<p><button type="button" class="margin-bot btn btn-primary btn-lg center-block"  onclick="window.location='/admin/example/band/{{band.id}}/change';">Be First<p>And Add New Album!</button></p>
+    		{% endif %}
+    	</div>
+    	<div class="row">
+    		
+    		{% for album in albums %}
+	    		{# <a href="/example/song/{{album.id}}"> #}
+	    		<a class='songs' href="/example/album/{{band}}/{{album.album}}">
+					<div class="col-md-3 col-sm-6 col-xs-12" >
+					   <div class="thumbnail box" >
+					    	
+					      <img src="{{album.image.url}}" height="200" width="200" />
+					      <div class="caption">
+						      <h3 class='album'>{{album.album}}</h3>
+						      <p class='band' hidden>{{band}}</p>
+						      <p>{{album.year}}</p>
+						      <p><a href="#" class="btn btn-default" role="button" {% if not request.user.is_authenticated %} disabled title="Sign in at first!" {%endif%}>Like It</a></p>
+					      </div>
+					    </div>
+				  	</div>
+				</a>
+			{%endfor%}
+		</div>	
+    </div><!-- /.container -->
+{%endblock%}

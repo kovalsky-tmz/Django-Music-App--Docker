@@ -1,0 +1,122 @@
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" {%if request.user.is_authenticated %}href="/example" {%else%} href="/" {%endif%}><span class="glyphicon glyphicon-music" aria-hidden="true"></span>Music App</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li {% if request.get_full_path == "/" %}class="active"{%endif%}><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            {% if not request.user.is_authenticated %}
+                <li><a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target=".login-modal-md">Sign In</a></li>
+                <li><a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target=".register-modal-md">Sign Up</a></li>
+            {% endif %}
+           
+            
+          </ul>
+           <ul class="nav navbar-nav navbar-right" style="padding-right:25rem">
+                {% if request.user.is_authenticated %}
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Account: {{ request.user.username }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        {% if request.user.is_staff %}
+                            <li><a href="/admin">Admin Panel</a></li>
+                        {% endif %}
+                      <li><a href="{% url 'example:my_playlist' %}">My playlists</a></li>
+                      <li><a href="{% url 'example:my_favourite' %}">Favourites</a></li>
+                      <li><a href="/example/logout">Logout</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if 'example' not in request.get_full_path %}
+                <li><a href="/example"><span class="glyphicon glyphicon-log-in"></span>Open Music App</a></li>
+                {%endif%}
+            </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+<div class="modal fade login-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Sign In</h4>
+            </div>
+            <div class="modal-body ">
+            
+				<form action="{% url 'example:login' %}" method="POST" class="form-signin">
+					{% csrf_token %}
+					<h2 class="form-signin-heading">Please sign in</h2>
+					<label for="inputEmail" class="sr-only">Login</label>
+					<input type="text" id="username" name="username" class="form-control" placeholder="Login" required autofocus>
+					<label for="inputPassword" class="sr-only">Password</label>
+					<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+					<div class="checkbox">
+					<label>
+						<input type="checkbox" value="remember-me"> Remember me
+					</label>
+					</div>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				</form>
+        
+            </div>
+  
+        </div>
+    </div>
+</div>
+
+<div class="modal fade register-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-md" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="gridSystemModalLabel">Sign In</h4>
+				</div>
+				<div class="modal-body ">
+				
+					<form action="{% url 'example:register' %}" method="POST" class="form-signup">
+						{% csrf_token %}
+						<h2 class="form-signin-heading">Please sign up</h2>
+						<div class="form-group">
+						<label for="login" class="sr-only">Login</label>
+						<input type="text" id="username" name="username" class="form-control" placeholder="Login" required autofocus>
+						</div>
+						<div class="form-group">
+						<label for="inputPassword" class="sr-only">Password</label>
+						<input type="password" name="password_reg" id="password_reg" class="form-control" placeholder="Password" required>
+						</div>
+						<div class="form-group">
+						<label for="confirm_password" class="sr-only">Confirm Password</label>
+						<input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm Password" required>
+						</div>
+						
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+					</form>
+			
+				</div>
+	  
+			</div>
+		</div>
+	</div>
+	
+<script>
+	var password = document.getElementById("password_reg"), confirm_password = document.getElementById("confirm_password");
+
+	function validatePassword(){
+		if(password.value != confirm_password.value) {
+			confirm_password.setCustomValidity("Passwords Doesn't Match");
+		} else {
+			confirm_password.setCustomValidity('');
+		}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+</script>

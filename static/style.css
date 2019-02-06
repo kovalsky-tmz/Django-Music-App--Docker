@@ -1,0 +1,210 @@
+
+.glyphicon-music{
+    margin-left:15rem;
+}
+tr>td{
+    background:#134647;
+}
+.dropp a{
+    color:black;
+    padding-left:1rem;
+    padding-bottom:1rem;
+    display:block;
+}
+
+body {
+    margin-top: 80px;
+    font-family: Arial;
+    color:#89eaed;
+    background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin-bottom:10rem;
+}
+
+.modal-content{
+    background-color: #134647;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+
+.theme{
+  margin-top:-100px;
+	background-image: url("/media/theme.jpg");
+    color: white;
+    background-size: cover;
+    padding-top: 16%;
+    padding-bottom: 20%;
+}
+
+#each-song{
+	background-color: black;
+}
+
+.box{
+	padding-top:2rem;
+	min-height:42rem;
+	background:#134647;
+    border:none;
+}
+.btn{
+	margin-bottom: 1rem
+}
+
+.text-centered{
+    text-align:center;
+}
+
+.margin-bot-5 {
+	margin-bottom: 5rem;
+}
+
+.margin-bot-2{
+	margin-bottom: 2rem;
+}
+.margin-top-2{
+  margin-top: 2rem;
+}
+.margin-top-3{
+  margin-top: 3rem;
+}
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #222222;
+}
+
+.footer > .container {
+
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+.navbar-fixed-left {
+  width: 15rem;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+  margin-top:-5rem;
+  padding-top:2rem;
+  margin-right:16rem;
+  opacity:0.7;
+  z-index: 1
+
+}
+
+.navbar-fixed-left .navbar-nav > li > a{
+
+  float: none;  /* Cancel default li float: left */
+  width: 139px;
+  color:white;
+  font-size:1.5rem;
+  margin-top:0.5rem;
+  
+
+}
+.navbar-fixed-left .navbar-nav > li > a:hover {
+
+  float: none;  /* Cancel default li float: left */
+  width: 150px;
+  text-shadow: 1px 1px 2px white, 0 0 25px white, 0 0 5px blue;
+ 
+}
+
+.navbar-fixed-left + .container {
+  padding-left: 160px;
+
+
+}
+
+/* On using dropdown menu (To right shift popuped) */
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+  margin-top: -50px;
+  margin-left: 150px;
+
+
+}
+
+
+
+/*phones*/
+/*SMALLEST*/
+@media screen and (max-width: 768px) {
+  body{
+    margin-top: 6rem;
+  }
+  .btn-resp{
+    padding:8px 8px;
+    font-size:85%;
+  }
+  .navbar-fixed-left {
+    width: 12rem;
+  }
+  h1 {
+    font-size: 20pt;
+  }
+  h2 {
+    font-size: 19pt;
+  }
+  h3{
+    font-size:16pt;
+  }
+  .p{
+  	font-size: 12pt;
+  }
+  .box{
+	padding-top:4rem;
+	max-height:15rem;
+}
+
+.navbar-fixed-left .navbar-nav > li > a{
+  font-size:1.4rem;
+  margin-top:1.7rem; 
+
+}
+
+}
+
+
+/*tablets*/
+@media screen and (min-width: 769px) and (max-width: 992px ) {
+  .btn-resp {
+    padding:8px 8px;
+    font-size:92%;
+  };
+
+  h1{
+    font-size: 100pt;
+  }
+
+  h2 {
+    font-size: 21pt;
+  }
+  h3{
+    font-size:18pt;
+  }
+  .p{
+  	font-size: 14pt;
+  }
+.box{
+	padding-top:2rem;
+	max-height:22rem;
+}
+}
+
+

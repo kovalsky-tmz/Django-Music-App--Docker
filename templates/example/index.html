@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container c">
+	<div class="col-md-8 col-md-offset-2">
+ 		 <div class="starter-template" style="color:#89eaed">
+	        <h1>Welcome {{user}}!</h1>
+	        <h3>Thank you for join us! Start your journey now</h3>
+	        <h2 class="lead">You've got access to all of our database without payments. Listen what you want, create playlists, share it with your friends and help us expands</h2>
+      	</div>
+  	</div>
+</div>
+
+
+
+
+
+
+
+<!--
+	<div class="container-fluid">
+
+      	<div class="starter-template">
+	        <h1>Click and Listen Music</h1>
+	        <p class="lead">Create your playlists with your favorite music and share it to your friends.</p>
+      	</div>
+    </div>
+    <div class="container">
+    	<div class='row'>
+	    	<div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 margin-bot-5'>
+		    	<form class='text-centered ' action="/example" method='GET'>
+					<input type='text' class='form-control' name='search_phrase' style='margin-bottom:1rem' placeholder="Find band">
+					 <button id="search" name="search" type="submit" class="btn btn-primary center-block" value="Search">
+					 Search</button>
+		    	</form>
+    		</div>
+    	</div>
+    	<div class="row">
+    		
+    		{% if messages %}
+			    {% for message in messages %}
+			    	<p{% if message.tags %} class="bg-{{ message.tags }}"{% endif %}>{{ message }}</p>
+			    {% endfor %}
+			{% endif %}
+
+			
+    		{% for band in bands %}
+	    		<a href="album/{{band.band}}">
+					<div class="text-centered col-md-3 col-sm-6 col-xs-12 " >
+					   <div class="thumbnail box">
+					
+					      <img src="{{band.image.url}}" height="100" width="200" />
+					      <div class="caption">
+							<h3>{{band.band}}</h3>
+							<p>{{band.year}}</p>
+							<form action="add_band" method="POST">
+							  {% csrf_token %}
+							  <button id="band_name" name="band_name" type="submit" class="btn btn-primary btn-resp" value="{{band.id}}" {% if not request.user.is_authenticated %} disabled title="Sign in at first!"{%endif%}>Add to favourite</button>
+							</form>
+							<a href="#" class="btn btn-default btn-resp" role="button" {% if not request.user.is_authenticated %} disabled title="Sign in at first!" {%endif%}>Like It</a></p>
+					      </div>
+					    </div>
+				  	</div>
+				</a>
+			{%endfor%}
+		</div>
+
+		
+    </div><!-- /.container -->
+
+{%endblock%}

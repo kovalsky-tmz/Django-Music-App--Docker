@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container c">
+		{% if messages %}
+			{% for message in messages %}
+				<p{% if message.tags %} class="bg-{{ message.tags }}"{% endif %}>{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+    	<div class='row'>
+	    	<p id="message"></p>
+    		{% if messages %}
+			    {% for message in messages %}
+			    	<p{% if message.tags %} class="bg-{{ message.tags }} message"{% endif %}>{{ message }}</p>
+			    {% endfor %}
+			{% endif %}
+    		<div class='col-md-7 col-md-offset-2 col-sm-7 col-sm-offset-2 col-xs-8 col-xs-offset-2 margin-bot-2 text-center'>
+	      		{% if messages %}
+				    {% for message in messages %}
+				    	<p{% if message.tags %} class="bg-{{ message.tags }}"{% endif %}>{{ message }}</p>
+				    {% endfor %}
+				{% endif %}
+		        <h1>My Playlists</h1>
+		        <button style="margin-top:1rem;"  type="button" class="btn btn-medium btn-primary" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target=".playlist-modal-sm">Create new</button>
+
+    		</div>
+		</div>
+		{%if playlists%}
+			<div class="row">
+
+	{# NA TABELE ZAMIENIC #}
+				<div class="col-md-7 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-7 col-xs-offset-2">
+					<table class="table table-striped text-center" id='playlist'>
+						<thead>
+							<tr>
+								<th class='text-center'>#</th>
+								<th class='text-center'>Playlist Title</th>
+								<th class='text-center'>Options</th>
+							</tr>
+						</thead>
+						<tbody id="playlist" class='sortable'>
+						
+							{% for playlist in playlists %}
+								{% if playlist.active == 1 %}
+									<tr>
+										<td class="col-md-1">{{ forloop.counter}}</td>
+										<td class="col-md-5"><a class='to_playlist' href="my_playlist/{{playlist}}">{{playlist.title}}</a></td>
+										<td class="col-md-3">
+											<button type="button" class="share_btn btn btn-sm btn-primary" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target=".share-modal-md{{forloop.counter}}">Share<span class="glyphicon glyphicon-share"></span></button>
+											<input class='playlist_title' type='text' hidden value="{{playlist.title}}">
+											<button type="button" class="btn btn-sm btn-warning" aria-haspopup="true" aria-expanded="false">Remove<span class="glyphicon glyphicon-trash"></span></button>
+										</td>
+									</tr>
+
+								{%endif %}
+
+							{%endfor%}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{%endif%}
+
+
+
+
+		<div class="modal fade playlist-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+		    	<div class="modal-content">
+			    	<div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="gridSystemModalLabel">New Playlist</h4>
+			      	</div>
+		     		<div class="modal-body">
+	     				<form action='my_playlist' method='GET'>
+	     					{% csrf_token %}
+		     				<div class="form-group">
+					            <label for="playlist-name" class="control-label">Playlist name:</label>
+					            <input type="text" class="form-control" name='playlist_name' id="playlist-name">
+				         	</div>
+		     		</div>
+		     		<div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <input type="submit" id="add_playlist" class="btn btn-primary" value='Create'/>
+				        </form>
+			      	</div>
+			    </div>
+		    </div>
+		</div>
+
+
+
+		{% for playlist in playlists %}
+			<div class="modal fade share-modal-md{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal-dialog modal-md" role="document">
+			    	<div class="modal-content">
+				    	<div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="gridSystemModalLabel">Sharing Playlist</h4>
+				      	</div>
+			     		<div class="modal-body">
+		     				<table class="table table-hover">
+							 	<thead>
+							 		<tr>
+							 			<td>#</td>
+							 			<td>Username</td>
+							 			<td>Options</td>
+							 		</tr>
+							 	</thead>
+							 	<tbody>
+							 		{%for user in users%}
+								 		{%if request.user.username != user.username%}
+									 		<tr>
+									 			<th>{{ forloop.counter }}</th>
+									 			<td>{{user.username}}</td>
+									 			<form action='/example/my_playlist' method='POST'>
+									 			{% csrf_token %}
+										 			<div class='form-group'>
+										 				
+										 				<td>
+															<input  class='user_id_modal' name="user_id_modal" hidden value={{user.id}}>
+															<input  class='playlist_title_modal' name="playlist_title_modal" hidden value="{{playlist.title}}">
+															<button type="submit" class="btn btn-xs btn-primary" aria-haspopup="true" aria-expanded="false">Share<span class="glyphicon glyphicon-share"></span></button>
+														</td>
+										 			</div>
+									 			</form>
+									 		</tr>
+								 		{%endif%}
+							 		{%endfor%}
+							 	</tbody>
+							</table>
+		     				
+			     		</div>
+			     		
+			     		<div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        </form>
+				      	</div>
+				    </div>
+			    </div>
+			</div>
+		{%endfor%}
+   	</div><!-- /.container -->
+{%endblock%}
+
