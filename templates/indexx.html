@@ -8,8 +8,12 @@
   <div class="container-fluid  " >
         <div class="starter-template col-md-6 col-md-offset-3">
           <h1>Click and Listen Music</h1>
-          <h3>Create your playlists with your favorite music and share it to your friends.</h3>
-          <button type="button" class="btn btn-success btn-lg margin-top-3 btn-resp" data-toggle="modal" data-target=".register-modal-md">Click Here to Sign Up</button>
+		  <h3>Create your playlists with your favorite music and share it to your friends.</h3>
+		  {% if not request.user.is_authenticated  %}
+		  <button type="button" class="btn btn-success btn-lg margin-top-3 btn-resp" data-toggle="modal" data-target=".register-modal-md">Click Here to Sign Up</button>
+		  {%else%}
+		  <button type="button" class="btn btn-success btn-lg margin-top-3 btn-resp" onclick="javascript:window.location.href='/example';">Click Here to Sign Up</button>
+		  {%endif%}
         </div>
   </div>
  

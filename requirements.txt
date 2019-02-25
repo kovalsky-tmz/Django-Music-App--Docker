@@ -5,3 +5,6 @@ django-filter
 django-csvimport
 django-widget-tweaks
 pillow
+pytest
+pytest-factoryboy
+pytest-django

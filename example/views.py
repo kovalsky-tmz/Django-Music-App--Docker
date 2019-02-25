@@ -89,10 +89,10 @@ def ajax_share_playlist(request):
 		message={"class":'bg-success','text':"Band added to your favourites!."}
 		return JsonResponse(message)
 
+
+#  AJAX END--------------------------- 
 def role_check(user):
 	return user.is_staff==1
-#  AJAX END--------------------------- 
-
 # @user_passes_test(role_check,login_url='/example/') #if false redirect to /example
 @login_required(login_url='/example/login')
 def index(request):
@@ -198,8 +198,15 @@ def playlist_songs(request,playlist):
 	songs=Song.objects.filter(playlist_song__playlist_id=playlist.id)
 	return render(request,"songs.html",{'songs':songs, 'playlist':playlist.title})
 
+def user_not_logged(func):
+	def wrap(request,*args,**kwargs):
+		if request.user.is_authenticated:
+			return redirect('/example')
+		return func(request)
+	return wrap
 
 
+@user_not_logged
 def logging(request):
 	if request.method=="POST":
 		username=request.POST["username"]
