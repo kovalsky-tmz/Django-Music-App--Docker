@@ -86,6 +86,8 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #222222;
+  border-top:2px solid black;
+  padding-bottom:8rem
 }
 
 .footer > .container {
@@ -177,7 +179,10 @@ body {
   margin-top:1.7rem; 
 
 }
-
+.footer{
+	border-top:2px solid black;
+	padding-bottom:14rem
+}
 }
 
 
@@ -204,6 +209,10 @@ body {
 .box{
 	padding-top:2rem;
 	max-height:22rem;
+}
+.footer{
+	style=border-top:2px solid black;
+	padding-bottom:14rem;
 }
 }
 

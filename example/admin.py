@@ -89,12 +89,15 @@ class BandAdmin(admin.ModelAdmin,ExportCsvMixin):
 							break
 						else:
 							imagee="default.jpg"
-							
-							
 					n=obj.albums.create(album=file, year='2137',image=imagee)
 					for song in dirs_song:
 						if 'mp3' in song:
-							obj.song_set.create(album_id=Album.objects.get(album=file).id,song=song,mp3=str(obj.band)+"/"+file+"/"+song+".mp3")
+							obj.song_set.create(album_id=Album.objects.get(album=file).id,song=song,mp3=str(obj.band)+"/"+file+"/"+song)
+					messages.add_message(request, messages.INFO, 'Album with songs added :'+file)
+				elif obj.albums.filter(album=file):		
+					for song in dirs_song:
+						if 'mp3' in song:
+							obj.song_set.create(album_id=Album.objects.get(album=file).id,song=song,mp3=str(obj.band)+"/"+file+"/"+song)
 					messages.add_message(request, messages.INFO, 'Album with songs added :'+file)
 				else:
 					messages.add_message(request, messages.INFO, 'Already exists: '+file)
@@ -124,13 +127,13 @@ class AlbumAdmin(admin.ModelAdmin):
 		if form.cleaned_data.get('extra_field'):
 			obj.save()
 			print(obj.band)
-			path=("C:/Users/Tomasz/djangopro/media/"+str(obj.band)+"/"+form.cleaned_data.get('album'))
+			path=("media/"+str(obj.band)+"/"+form.cleaned_data.get('album'))
 			dirs = os.listdir(path)
 			for file in dirs:
 				print (file)
 				if not obj.song_set.filter(song=file):
-					obj.song_set.create(band=obj.band,song=file,mp3=str(obj.band)+"/"+form.cleaned_data.get('album')+"/"+file+".mp3")
-					messages.add_message(request, messages.INFO, 'Album added :'+file)
+					obj.song_set.create(band=obj.band,song=file,mp3=str(obj.band)+"/"+form.cleaned_data.get('album')+"/"+file)
+					messages.add_message(request, messages.INFO, 'Song added :'+file)
 				else:
 					messages.add_message(request, messages.INFO, 'Already exists: '+file)
 
@@ -140,6 +143,6 @@ class AlbumAdmin(admin.ModelAdmin):
 admin.site.register(Band,BandAdmin)
 admin.site.register(Album,AlbumAdmin)
 admin.site.register(Song)
-# do konkretnego usera trzeba kiedys zrobic
+
 admin.site.register(BandFavourite)
 admin.site.register(Playlist)
