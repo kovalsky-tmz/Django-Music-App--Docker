@@ -1,5 +1,5 @@
 # Django-Music-App--Docker
-<p>Music App is an application for storing, managing, listening and sharing music. <br><b> Access to admin account</b> login: test, password: testy123<br>
+<p>Music App is an application for storing, managing, listening and sharing music. <br><b> Access to admin account</b> login: admin, password: testy123<br>
 Use admin panel to storing bands, playlists and songs.
 <h3>Run</h3>
 To run app use docker-compose.yml by command <code>docker-compose up</code> or use docker image <code>docker run -p 8000:8000 kowal20x7/music-app</code>.<br>
